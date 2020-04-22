@@ -34,7 +34,7 @@ class LoginPage(object):
 
 if __name__=="__main__":
     login_page = LoginPage()
-    login_page.input_username('lixue')
+    login_page.input_username('lixue1')
     login_page.input_password('lixue@123')
     login_page.click_login()
 
