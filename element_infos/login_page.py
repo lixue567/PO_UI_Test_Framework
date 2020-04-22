@@ -5,12 +5,13 @@ from selenium.webdriver.common.by import By
 current_path = os.path.dirname(__file__)
 driver_path = os.path.join(current_path,'../webdriver/chromedriver.exe')
 
+#页面属性
 class LoginPage(object):
     def __init__(self):
         self.driver = webdriver.Chrome(executable_path=driver_path)
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
-        self.driver.get('http://127.0.0.1:8088/zentao/user-login-L3plbnRhby8=.html')
+        self.driver.get('http://106.53.50.202:8999/zentao4/www/my/')
         #页面属性，用户名
         self.username_inputbox = self.driver.find_element(By.XPATH,'//input[@name="account"]')
         #页面属性，密码
@@ -20,6 +21,7 @@ class LoginPage(object):
         #保持登录复选框
         self.keeplogin_checkbox = self.driver.find_element(By.XPATH,'//input[@id="keepLoginon"]')
 
+#方法，控件的操作
     def input_username(self,username):
         self.username_inputbox.send_keys(username)
 
@@ -32,8 +34,8 @@ class LoginPage(object):
 
 if __name__=="__main__":
     login_page = LoginPage()
-    login_page.input_username('admin')
-    login_page.input_password('zentao123')
+    login_page.input_username('lixue')
+    login_page.input_password('lixue@123')
     login_page.click_login()
 
 
