@@ -12,20 +12,23 @@ class MainPage(object):
         login_page.input_username('lixue')
         login_page.input_password('lixue@123')
         login_page.click_login()
-        self.driver = login_page.driver # 把login_page的对象转移到mainpage
+        self.driver = login_page.driver
         self.companyname_showbox = self.driver.find_element(By.XPATH,'//h1[@id="companyname"]')
         self.myzone_menu = self.driver.find_element(By.XPATH,'//li[@data-id="my"]')
         self.product_menu = self.driver.find_element(By.XPATH,'//li[@data-id="product"]')
         self.username_showspan = self.driver.find_element(By.XPATH,'//span[@class="user-name"]')
 
-    def get_companyname(self):  # 获取公司名称
+    # 获取公司名称
+    def get_companyname(self):
         value = self.companyname_showbox.get_attribute('title')
         return value
 
-    def goto_myzone(self):  # 进入我的地盘菜单
+    # 进入我的地盘
+    def goto_myzone(self):
         self.myzone_menu.click()
 
-    def goto_product(self):  # 进入产品菜单
+    # 进入产品菜单
+    def goto_product(self):
         time.sleep(1)
         self.product_menu.click()
 

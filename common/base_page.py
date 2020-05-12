@@ -10,7 +10,7 @@ class BasePage(object):
     def __init__(self,driver):
         self.driver = driver
 
-    # 浏览器操作封装 -- > 二次封装
+
     def open_url(self,url):
         self.driver.get( url )
         logger.info('打开url地址 %s '% url )
@@ -31,16 +31,17 @@ class BasePage(object):
         value = self.driver.title
         logger.info('获取网页标题，标题是%s'%value)
         return value
-    #.....
+
 
     #元素操作封装
-    # element_info = {'element_name':'用户名输入框','locator_type':'xpath','locator_value':'//input[@name="account"]','timeout': 5 }
     def find_element(self,element_info):
         locator_type_name = element_info['locator_type']
         locator_value_info = element_info['locator_value']
         locator_timeout = element_info['timeout']
         if locator_type_name == 'id':
             locator_type = By.ID
+        elif locator_type_name == 'name':
+            locator_type = By.NAME
         elif locator_type_name == 'class':
             locator_type = By.CLASS_NAME
         elif locator_type_name == 'xpath':
@@ -61,5 +62,30 @@ class BasePage(object):
         element = self.find_element(element_info)
         element.send_keys(content)
         logger.info('[%s]元素输入内容：%s' %(element_info['element_name'],content))
+
+    #frame ==> id/name frame元素对象的封装
+#    思路一：（推荐）
+    def switch_to_frame(self,element_info):
+        element = self.find_element(element_info)
+        self.driver.switch_to.frame(element)
+
+#    思路二：(查找元素的方式)
+    def switch_to_frame_id_or_name(self,id_or_name):
+        self.driver.switch_to.frame(id_or_name)
+
+    def switch_to_frame_by_element(self,element_info):
+        element = self.find_element(element_info)
+        self.driver.switch_to.frame(element)
+
+#    思路三：
+    def swith_to_frame(self,**element_dicr):
+        if 'id' in element_dicr.keys():
+            self.driver.switch_to.frame(element_dicr['id'])
+        elif 'name' in element_dicr.keys():
+            self.driver.switch_to.frame(element_dicr['name'])
+        elif 'element' in element_dicr.keys():
+            element = self.find_element(element_dicr['element'])
+            self.driver.switch_to.frame(element)
+
 
 
